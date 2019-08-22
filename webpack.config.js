@@ -1,6 +1,9 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/index.js',
   module: {
     rules: [
@@ -19,7 +22,14 @@ module.exports = {
     publicPath: '/',
     filename: 'main.js'
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Hello Webpack bundled React Project',
+      template: './src/index.html'
+    })
+  ],
   devServer: {
     contentBase: './dist'
   }
